@@ -30,6 +30,6 @@ public class JsonService(ConfigurationApp config): IJsonService
 		users.Add(userToModify);
 		var json = JsonSerializer.Serialize(users);
 		
-		await File.WriteAllTextAsync(config.VcTimerFilePath, json);
+		await File.WriteAllTextAsync(config.VcTimerFilePath ?? "", json);
 	}
 }
