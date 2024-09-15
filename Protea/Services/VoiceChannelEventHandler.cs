@@ -7,7 +7,7 @@ namespace Protea.Services;
 public class VoiceChannelEventHandler(IVoiceChannelTimerService vctService) : IVoiceChannelEventHandler
 {
 	
-	public Task SaveTimeInVoiceChannel(SocketUser user, SocketVoiceState before, SocketVoiceState after)
+	public async Task SaveTimeInVoiceChannel(SocketUser user, SocketVoiceState before, SocketVoiceState after)
 	{
 		if (before.VoiceChannel == null && after.VoiceChannel?.Guild.Id == Constants.OlaBbsGuildId)
 		{
@@ -17,9 +17,7 @@ public class VoiceChannelEventHandler(IVoiceChannelTimerService vctService) : IV
 		} else if (before.VoiceChannel?.Guild.Id == Constants.OlaBbsGuildId && after.VoiceChannel == null)
 		{
 			Console.WriteLine($"{user.Username} ha salido de un canal de OLA BBS");
-			vctService.SaveUserTime(user.Username);
+			await vctService.SaveUserTime(user.Username);
 		}
-		
-		return Task.CompletedTask;
 	}
 }

@@ -4,5 +4,6 @@ namespace Protea.Interfaces.Services;
 
 public interface IJsonService
 {
-	void SaveUserTime(TimeSpentVc user);
+	Task<IList<TimeSpentVc>>GetUsers();
+	Task SaveUserTime(TimeSpentVc user);
 }

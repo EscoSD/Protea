@@ -16,7 +16,7 @@ public class JsonService: IJsonService
 		return JsonSerializer.Deserialize<IList<TimeSpentVc>>(rawData) ?? [];
 	}
 
-	public async void SaveUserTime(TimeSpentVc user)
+	public async Task SaveUserTime(TimeSpentVc user)
 	{
 		var users = await GetUsers();
 		var userToModify = users.FirstOrDefault(u => u.Username!.Equals(user.Username)) ?? user;

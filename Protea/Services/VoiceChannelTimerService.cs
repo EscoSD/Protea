@@ -18,7 +18,7 @@ public class VoiceChannelTimerService(IJsonService jsonService) : IVoiceChannelT
 		_usersCache.Add(stv);
 	}
 
-	public void SaveUserTime(string username)
+	public async Task SaveUserTime(string username)
 	{
 		var cacheUser = _usersCache.FirstOrDefault(u => u.Username!.Equals(username));
 		
@@ -35,6 +35,6 @@ public class VoiceChannelTimerService(IJsonService jsonService) : IVoiceChannelT
 				.TotalMilliseconds)
 		};
 
-		jsonService.SaveUserTime(user);
+		await jsonService.SaveUserTime(user);
 	}
 }
