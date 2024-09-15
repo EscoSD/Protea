@@ -19,10 +19,13 @@ public class JsonService: IJsonService
 	public async void SaveUserTime(TimeSpentVc user)
 	{
 		var users = await GetUsers();
-		var userToModify = users.FirstOrDefault(u => u.Username!.Equals(user.Username))!;
+		var userToModify = users.FirstOrDefault(u => u.Username!.Equals(user.Username)) ?? user;
 		
-		users.Remove(userToModify);
-		userToModify.TimeSpentMilliseconds += user.TimeSpentMilliseconds;
+		if (userToModify != user)
+		{
+			users.Remove(userToModify);
+			userToModify.TimeSpentMilliseconds += user.TimeSpentMilliseconds;
+		}
 		
 		users.Add(userToModify);
 		var json = JsonSerializer.Serialize(users);
