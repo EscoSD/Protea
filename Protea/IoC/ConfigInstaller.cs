@@ -7,6 +7,6 @@ public static class ConfigInstaller
 {
 	public static void InstallConfig(this IServiceCollection serviceCollection, ConfigurationApp config)
 	{
-		serviceCollection.AddSingleton<ConfigurationApp>(config);
+		serviceCollection.AddSingleton(config);
 	}
 }

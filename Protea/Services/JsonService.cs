@@ -1,5 +1,4 @@
 using System.Text.Json;
-using Protea.Data;
 using Protea.Interfaces.Services;
 using Protea.Models;
 using Protea.Models.Configuration;
