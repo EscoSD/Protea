@@ -3,12 +3,15 @@
 using Microsoft.Extensions.DependencyInjection;
 using Protea;
 using Protea.IoC;
+using Protea.Models.Configuration;
 
 Console.WriteLine($"{DateTime.Now} - Iniciando Protea");
 
 IServiceCollection services = new ServiceCollection();
+var config = new ConfigurationApp().SetConfig();
 
 services.InstallServices();
+services.InstallConfig(config);
 
 IServiceProvider serviceProvider = services.BuildServiceProvider();
 

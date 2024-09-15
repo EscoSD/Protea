@@ -2,17 +2,18 @@ using System.Text.Json;
 using Protea.Data;
 using Protea.Interfaces.Services;
 using Protea.Models;
+using Protea.Models.Configuration;
 
 namespace Protea.Services;
 
-public class JsonService: IJsonService
+public class JsonService(ConfigurationApp config): IJsonService
 {
 	public async Task<IList<TimeSpentVc>>GetUsers()
 	{
-		if (!File.Exists(Constants.HallOfShameFilePath))
+		if (!File.Exists(config.VcTimerFilePath))
 			return new List<TimeSpentVc>();
 
-		var rawData = await File.ReadAllTextAsync(Constants.HallOfShameFilePath);
+		var rawData = await File.ReadAllTextAsync(config.VcTimerFilePath);
 		return JsonSerializer.Deserialize<IList<TimeSpentVc>>(rawData) ?? [];
 	}
 
@@ -30,6 +31,6 @@ public class JsonService: IJsonService
 		users.Add(userToModify);
 		var json = JsonSerializer.Serialize(users);
 		
-		await File.WriteAllTextAsync(Constants.HallOfShameFilePath, json);
+		await File.WriteAllTextAsync(config.VcTimerFilePath, json);
 	}
 }
