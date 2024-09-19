@@ -35,6 +35,6 @@ public class VoiceChannelTimerService(IJsonService jsonService) : IVoiceChannelT
 				.TotalMilliseconds)
 		};
 
-		await jsonService.SaveUserTime(user);
+		await jsonService.SaveUserTimeAsync(user);
 	}
 }

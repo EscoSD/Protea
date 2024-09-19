@@ -1,10 +1,11 @@
 using Discord.WebSocket;
 using Protea.Data;
+using Protea.Interfaces.Handlers;
 using Protea.Interfaces.Services;
 
-namespace Protea.Services;
+namespace Protea.Handlers;
 
-public class VoiceChannelEventHandler(IVoiceChannelTimerService vctService) : IVoiceChannelEventHandler
+public class VoiceChannelHandler(IVoiceChannelTimerService vctService) : IVoiceChannelHandler
 {
 	
 	public async Task SaveTimeInVoiceChannel(SocketUser user, SocketVoiceState before, SocketVoiceState after)
