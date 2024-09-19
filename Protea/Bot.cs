@@ -1,10 +1,10 @@
 using Discord;
 using Discord.WebSocket;
-using Protea.Interfaces.Services;
+using Protea.Interfaces.Handlers;
 
 namespace Protea;
 
-public class Bot(DiscordSocketClient client, IVoiceChannelEventHandler vceHandler)
+public class Bot(DiscordSocketClient client, IVoiceChannelHandler vceHandler, ICommandHandler commandHandler)
 {
 	public async Task Run()
 	{
@@ -15,6 +15,8 @@ public class Bot(DiscordSocketClient client, IVoiceChannelEventHandler vceHandle
 
 		await client.LoginAsync(TokenType.Bot, token);
 		await client.StartAsync();
+
+		await commandHandler.InstallCommandsAsync();
 
 		// Block this task until the program is closed.
 		await Task.Delay(-1);

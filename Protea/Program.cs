@@ -1,6 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using Discord;
+using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using Protea;
@@ -12,12 +12,11 @@ Console.WriteLine($"{DateTime.Now} - Iniciando Protea");
 IServiceCollection services = new ServiceCollection();
 
 var config = new ConfigurationApp().SetConfig();
-var discConfig = new DiscordSocketConfig
-{
-	GatewayIntents = GatewayIntents.All
-};
+var discConfig = new DiscordSocketConfig().GetClientConfig();
+var commandsConfig = new CommandServiceConfig().GetCommandsConfig();
 
-services.InstallConfig(config, discConfig);
+
+services.InstallConfig(config, discConfig, commandsConfig);
 services.InstallServices();
 
 IServiceProvider serviceProvider = services.BuildServiceProvider();

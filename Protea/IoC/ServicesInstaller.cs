@@ -1,5 +1,8 @@
+using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
+using Protea.Handlers;
+using Protea.Interfaces.Handlers;
 using Protea.Interfaces.Services;
 using Protea.Services;
 
@@ -11,8 +14,10 @@ public static class ServicesInstaller
 	{
 		serviceCollection.AddSingleton<Bot>();
 		serviceCollection.AddSingleton<DiscordSocketClient>();
+		serviceCollection.AddSingleton<CommandService>();
 		serviceCollection.AddSingleton<IVoiceChannelTimerService, VoiceChannelTimerService>();
-		serviceCollection.AddSingleton<IVoiceChannelEventHandler, VoiceChannelEventHandler>();
+		serviceCollection.AddSingleton<IVoiceChannelHandler, VoiceChannelHandler>();
+		serviceCollection.AddSingleton<ICommandHandler, CommandHandler>();
 		serviceCollection.AddSingleton<IJsonService, JsonService>();
 	}
 }
