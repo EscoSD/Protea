@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Protea.Data;
 using Protea.Interfaces.Services;
 using Protea.Models;
 using Protea.Models.Configuration;
@@ -7,18 +8,9 @@ namespace Protea.Services;
 
 public class JsonService(ConfigurationApp config): IJsonService
 {
-	public async Task<IList<TimeSpentVc>>GetUsers()
+	public async Task SaveUserTimeAsync(TimeSpentVc user)
 	{
-		if (!File.Exists(config.VcTimerFilePath))
-			return new List<TimeSpentVc>();
-
-		var rawData = await File.ReadAllTextAsync(config.VcTimerFilePath);
-		return JsonSerializer.Deserialize<IList<TimeSpentVc>>(rawData) ?? [];
-	}
-
-	public async Task SaveUserTime(TimeSpentVc user)
-	{
-		var users = await GetUsers();
+		var users = await GetUsersAsync();
 		var userToModify = users.FirstOrDefault(u => u.Username!.Equals(user.Username)) ?? user;
 		
 		if (userToModify != user)
@@ -31,5 +23,27 @@ public class JsonService(ConfigurationApp config): IJsonService
 		var json = JsonSerializer.Serialize(users);
 		
 		await File.WriteAllTextAsync(config.VcTimerFilePath ?? "", json);
+	}
+
+	public async Task<string> GetUserTimeAsync(string username)
+	{
+		var users = await GetUsersAsync();
+		var user = users.FirstOrDefault(u => u.Username!.Equals(username));
+
+		if (user == null)
+			return "Usuario no registrado";
+		
+		var time = TimeSpan.FromMilliseconds(user.TimeSpentMilliseconds);
+		
+		return string.Format(Constants.VcCommandResponseFormat, time.Days, time.Hours, time.Minutes, time.Seconds);
+	}
+
+	private async Task<IList<TimeSpentVc>>GetUsersAsync()
+	{
+		if (!File.Exists(config.VcTimerFilePath))
+			return new List<TimeSpentVc>();
+
+		var rawData = await File.ReadAllTextAsync(config.VcTimerFilePath);
+		return JsonSerializer.Deserialize<IList<TimeSpentVc>>(rawData) ?? [];
 	}
 }
