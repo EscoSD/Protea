@@ -5,10 +5,15 @@ using Protea.Interfaces.Services;
 
 namespace Protea.Handlers;
 
-public class VoiceChannelHandler(IVoiceChannelTimerService vctService) : IVoiceChannelHandler
+public class VoiceChannelHandler(DiscordSocketClient client, IVoiceChannelTimerService vctService) : IVoiceChannelHandler
 {
+
+	public void InstallHandler()
+	{
+		client.UserVoiceStateUpdated += SaveTimeInVoiceChannel;
+	}
 	
-	public async Task SaveTimeInVoiceChannel(SocketUser user, SocketVoiceState before, SocketVoiceState after)
+	private async Task SaveTimeInVoiceChannel(SocketUser user, SocketVoiceState before, SocketVoiceState after)
 	{
 		if (before.VoiceChannel == null && after.VoiceChannel?.Guild.Id == Constants.OlaBbsGuildId)
 		{

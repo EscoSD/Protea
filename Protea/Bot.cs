@@ -9,7 +9,6 @@ public class Bot(DiscordSocketClient client, IVoiceChannelHandler vceHandler, IC
 	public async Task Run()
 	{
 		client.Log += Log;
-		client.UserVoiceStateUpdated += UserVoiceStateUpdatedAsync;
 		
 		var token = Environment.GetEnvironmentVariable("TOKEN_PROTEA");
 
@@ -17,13 +16,11 @@ public class Bot(DiscordSocketClient client, IVoiceChannelHandler vceHandler, IC
 		await client.StartAsync();
 
 		await commandHandler.InstallCommandsAsync();
+		vceHandler.InstallHandler();
 
 		// Block this task until the program is closed.
 		await Task.Delay(-1);
 	}
-
-	private Task UserVoiceStateUpdatedAsync(SocketUser user, SocketVoiceState before, SocketVoiceState after)
-		=> vceHandler.SaveTimeInVoiceChannel(user, before, after);
 	
 	private static Task Log(LogMessage msg)
 	{
