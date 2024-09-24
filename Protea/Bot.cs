@@ -4,12 +4,10 @@ using Protea.Interfaces.Handlers;
 
 namespace Protea;
 
-public class Bot(DiscordSocketClient client, IVoiceChannelHandler vceHandler, ICommandHandler commandHandler)
+public class Bot(DiscordSocketClient client, IVoiceChannelHandler vceHandler, ICommandHandler commandHandler, ILogHandler logHandler)
 {
 	public async Task Run()
 	{
-		client.Log += Log;
-		
 		var token = Environment.GetEnvironmentVariable("TOKEN_PROTEA");
 
 		await client.LoginAsync(TokenType.Bot, token);
@@ -17,14 +15,8 @@ public class Bot(DiscordSocketClient client, IVoiceChannelHandler vceHandler, IC
 
 		await commandHandler.InstallCommandsAsync();
 		vceHandler.InstallHandler();
-
-		// Block this task until the program is closed.
+		logHandler.InstallHandler();
+		
 		await Task.Delay(-1);
-	}
-	
-	private static Task Log(LogMessage msg)
-	{
-		Console.WriteLine(msg.ToString());
-		return Task.CompletedTask;
 	}
 }
