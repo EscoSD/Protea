@@ -12,4 +12,12 @@ public class Commands (IJsonService jsonService): ModuleBase<SocketCommandContex
 		var response = await jsonService.GetUserTimeAsync(Context.User.Username);
 		await ReplyAsync(response);
 	}
+	
+	[Command("vcRanking")]
+	[Summary("Muestra un ranking con los tiempos pasados en VCs.")]
+	public async Task GetVcRankingAsync()
+	{
+		var response = await jsonService.GetVcRankingAsync();
+		await ReplyAsync(response);
+	}
 }

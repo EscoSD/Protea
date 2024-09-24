@@ -38,6 +38,24 @@ public class JsonService(ConfigurationApp config): IJsonService
 		return string.Format(Constants.VcCommandResponseFormat, time.Days, time.Hours, time.Minutes, time.Seconds);
 	}
 
+	public async Task<string> GetVcRankingAsync()
+	{
+		var users = await GetUsersAsync();
+		var list = users.OrderByDescending(u => u.TimeSpentMilliseconds).Take(5);
+
+		var response = "Ranking:\n\n";
+
+		foreach (var user in list)
+		{
+			var time = TimeSpan.FromMilliseconds(user.TimeSpentMilliseconds);
+			var formated = string.Format(Constants.VcRankingCommandResponseFormat, time.Days, time.Hours, time.Minutes, time.Seconds);
+
+			response += $"{user.Username}.- {formated}\n";
+		}
+
+		return response;
+	}
+
 	private async Task<IList<TimeSpentVc>>GetUsersAsync()
 	{
 		if (!File.Exists(config.VcTimerFilePath))

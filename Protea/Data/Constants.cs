@@ -8,4 +8,5 @@ public static class Constants
 	public const char CommandsPrefix = '¿';
 	
 	public const string VcCommandResponseFormat = "Vida perdida en VCs:\n {0}d {1}h {2}m {3}s";
+	public const string VcRankingCommandResponseFormat = "{0}d {1}h {2}m {3}s";
 }

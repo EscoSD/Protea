@@ -6,4 +6,5 @@ public interface IJsonService
 {
 	Task SaveUserTimeAsync(TimeSpentVc user);
 	Task<string> GetUserTimeAsync(string username);
+	Task<string> GetVcRankingAsync();
 }
