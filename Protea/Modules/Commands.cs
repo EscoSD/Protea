@@ -14,7 +14,7 @@ public class Commands (IJsonService jsonService): ModuleBase<SocketCommandContex
 	}
 	
 	[Command("vcRanking")]
-	[Summary("Muestra un ranking con los tiempos pasados en VCs.")]
+	[Summary("Muestra el ranking de los 5 usuarios que mas tiempo han pasado en los canales de voz.")]
 	public async Task GetVcRankingAsync()
 	{
 		var response = await jsonService.GetVcRankingAsync();

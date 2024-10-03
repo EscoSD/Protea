@@ -1,6 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using Discord.Commands;
+﻿using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using Protea;
@@ -14,7 +12,6 @@ IServiceCollection services = new ServiceCollection();
 var config = new ConfigurationApp().SetConfig();
 var discConfig = new DiscordSocketConfig().GetClientConfig();
 var commandsConfig = new CommandServiceConfig().GetCommandsConfig();
-
 
 services.InstallConfig(config, discConfig, commandsConfig);
 services.InstallServices();
