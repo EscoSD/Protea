@@ -1,40 +1,42 @@
+using Discord.WebSocket;
 using Protea.Interfaces.Services;
 using Protea.Models;
 
 namespace Protea.Services;
 
-public class VoiceChannelTimerService(IJsonService jsonService) : IVoiceChannelTimerService
+public class VoiceChannelTimerService(List<VcEntryRecord> activeVcUsers, IJsonService jsonService) : IVoiceChannelTimerService
 {
-	private readonly List<StartTimeVc> _usersCache = [];
-	
-	public void SaveStv(string username)
+	public void SaveVcEntry(SocketUser user, ulong guildId)
 	{
-		var stv = new StartTimeVc
+		var entry = new VcEntryRecord
 		{
-			Username = username,
+			UserId = user.Id,
+			GuildId = guildId,
 			StartTime = DateTime.Now
 		};
-			
-		_usersCache.Add(stv);
+		
+		activeVcUsers.Add(entry);
 	}
 
-	public async Task SaveUserTime(string username)
+	public async Task SaveUserTime(SocketUser user, SocketGuild guild)
 	{
-		var cacheUser = _usersCache.FirstOrDefault(u => u.Username!.Equals(username));
+		var activeUser = activeVcUsers.FirstOrDefault(u => u.UserId.Equals(user.Id));
 		
-		if (cacheUser == null)
-			return;
+		if (activeUser == null) return;
 		
-		_usersCache.Remove(cacheUser);
+		activeVcUsers.Remove(activeUser);
 		
-		var user = new TimeSpentVc
+		var userTimeRecord = new TimeSpentVc
 		{
-			Username = username,
+			UserId = user.Id,
+			Username = user.Username,
+			GuildId = guild.Id,
+			GuildName = guild.Name,
 			TimeSpentMilliseconds =
-				Convert.ToInt64((DateTime.Now - cacheUser.StartTime)
+				Convert.ToInt64((DateTime.Now - activeUser.StartTime)
 				.TotalMilliseconds)
 		};
 
-		await jsonService.SaveUserTimeAsync(user);
+		await jsonService.SaveUserTimeAsync(userTimeRecord);
 	}
 }
