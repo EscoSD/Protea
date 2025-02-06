@@ -4,8 +4,10 @@ using Protea.Models;
 
 namespace Protea.Services;
 
-public class VoiceChannelTimerService(List<VcEntryRecord> activeVcUsers, IJsonService jsonService) : IVoiceChannelTimerService
+public class VoiceChannelTimerService(IJsonService jsonService) : IVoiceChannelTimerService
 {
+	private readonly List<VcEntryRecord> _activeVcUsers = [];
+	
 	public void SaveVcEntry(SocketUser user, ulong guildId)
 	{
 		var entry = new VcEntryRecord
@@ -15,16 +17,16 @@ public class VoiceChannelTimerService(List<VcEntryRecord> activeVcUsers, IJsonSe
 			StartTime = DateTime.Now
 		};
 		
-		activeVcUsers.Add(entry);
+		_activeVcUsers.Add(entry);
 	}
 
 	public async Task SaveUserTime(SocketUser user, SocketGuild guild)
 	{
-		var activeUser = activeVcUsers.FirstOrDefault(u => u.UserId.Equals(user.Id));
+		var activeUser = _activeVcUsers.FirstOrDefault(u => u.UserId.Equals(user.Id));
 		
 		if (activeUser == null) return;
 		
-		activeVcUsers.Remove(activeUser);
+		_activeVcUsers.Remove(activeUser);
 		
 		var userTimeRecord = new TimeSpentVc
 		{
