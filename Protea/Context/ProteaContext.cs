@@ -14,9 +14,9 @@ public class ProteaContext : DbContext
 
     public virtual DbSet<Guild> Guilds { get; init; }
 
-    public virtual DbSet<GuildUserVcTimeRecord> GuildUsers { get; init; }
+    public virtual DbSet<VcTimeRecord> GuildUsers { get; init; }
 
-    public virtual DbSet<UserTimeSpentVc> UserTimeSpentVcs { get; init; }
+    public virtual DbSet<User> UserTimeSpentVcs { get; init; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -28,11 +28,11 @@ public class ProteaContext : DbContext
             entity.Property(e => e.Name).HasColumnType("TEXT(50)");
         });
 
-        modelBuilder.Entity<GuildUserVcTimeRecord>(entity =>
+        modelBuilder.Entity<VcTimeRecord>(entity =>
         {
             entity.HasKey(e => new { e.GuildId, e.UserId });
 
-            entity.ToTable("GuildUserVcTimeRecord");
+            entity.ToTable("VcTimeRecord");
 
             entity.HasOne(d => d.Guild).WithMany(p => p.GuildUsers)
                 .HasForeignKey(d => d.GuildId)
@@ -43,9 +43,9 @@ public class ProteaContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
-        modelBuilder.Entity<UserTimeSpentVc>(entity =>
+        modelBuilder.Entity<User>(entity =>
         {
-            entity.ToTable("UserTimeSpentVc");
+            entity.ToTable("User");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Username).HasColumnType("TEXT(50)");
