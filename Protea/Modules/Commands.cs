@@ -4,13 +4,14 @@ using Protea.Interfaces.Services;
 
 namespace Protea.Modules;
 
-public class Commands (IJsonService jsonService): ModuleBase<SocketCommandContext>
+public class Commands (IVcTimeRecordService vcTimeRecordService): ModuleBase<SocketCommandContext>
 {
 	[Command("vcTime")]
 	[Summary(Constants.VcTimeCommandDesc)]
 	public async Task GetVcTimeAsync()
 	{
-		var response = await jsonService.GetUserTimeAsync(Context.User.Username);
+		var response = await vcTimeRecordService
+			.GetTimeByIdAsync(Context.Guild.Id ,Context.User.Id);
 		await ReplyAsync(response);
 	}
 	
@@ -18,7 +19,7 @@ public class Commands (IJsonService jsonService): ModuleBase<SocketCommandContex
 	[Summary(Constants.VcRankingCommandDesc)]
 	public async Task GetVcRankingAsync()
 	{
-		var response = await jsonService.GetVcRankingAsync();
+		var response = await vcTimeRecordService.GetRankingAsync();
 		await ReplyAsync(response);
 	}
 }
