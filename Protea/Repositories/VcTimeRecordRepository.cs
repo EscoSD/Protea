@@ -23,7 +23,7 @@ public class VcTimeRecordRepository(ProteaContext context) : IVcTimeRecordReposi
 
 	public async Task<IEnumerable<VcTimeRecordDto>> GetRankingAsync()
 	{
-		FormattableString query = $"{Constants.VcRankingQuery}";
+		FormattableString query = $"SELECT U.Username, V.TimeSpentMilliseconds\nFROM VcTimeRecord V\nINNER JOIN User U \nON V.UserId = U.Id\nORDER BY TimeSpentMilliseconds DESC\nLIMIT 5;";
 		return await context.Database.SqlQuery<VcTimeRecordDto>(query).ToListAsync();
 	}
 	
