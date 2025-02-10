@@ -14,6 +14,8 @@ var discConfig = new DiscordSocketConfig().GetClientConfig();
 var commandsConfig = new CommandServiceConfig().GetCommandsConfig();
 
 services.InstallConfig(config, discConfig, commandsConfig);
+services.InstallContext(config);
+services.InstallRepositories();
 services.InstallServices();
 
 IServiceProvider serviceProvider = services.BuildServiceProvider();
