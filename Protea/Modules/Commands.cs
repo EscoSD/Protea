@@ -11,7 +11,7 @@ public class Commands (IVcTimeRecordService vcTimeRecordService): ModuleBase<Soc
 	public async Task GetVcTimeAsync()
 	{
 		var response = await vcTimeRecordService
-			.GetTimeByIdAsync(Context.Guild.Id ,Context.User.Id);
+			.GetTimeByIdAsync(Context.Guild.Id, Context.User.Id);
 		await ReplyAsync(response);
 	}
 	
