@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Protea.Context;
+using Protea.Data;
 using Protea.Interfaces.Repositories;
 using Protea.Models;
 
@@ -17,9 +18,15 @@ public class VcTimeRecordRepository(ProteaContext context) : IVcTimeRecordReposi
 	{
 		return await context.GuildUsers
 			.FirstOrDefaultAsync(g =>
-				g.GuildId == guildId || g.UserId == userId);
+				g.GuildId == guildId && g.UserId == userId);
 	}
 
+	public async Task<IEnumerable<VcTimeRecordDto>> GetRankingAsync()
+	{
+		FormattableString query = $"{Constants.VcRankingQuery}";
+		return await context.Database.SqlQuery<VcTimeRecordDto>(query).ToListAsync();
+	}
+	
 	public async Task Update(VcTimeRecord vcTimeRecord)
 	{
 		context.GuildUsers.Update(vcTimeRecord);

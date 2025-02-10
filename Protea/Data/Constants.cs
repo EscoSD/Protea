@@ -2,8 +2,14 @@ namespace Protea.Data;
 
 public static class Constants
 {
-	public const long OlaBbsGeneralTextChannelId = 326707470233894912;
-	public const long OlaBbsGuildId = 326707470233894912;
+	public const string VcRankingQuery =
+		"""
+		SELECT U.Username, V.TimeSpentMilliseconds
+		FROM VcTimeRecord V
+		INNER JOIN User U 
+		ON V.UserId = U.Id
+		ORDER BY TimeSpentMilliseconds DESC LIMIT 5
+		""";
 
 	public const char CommandsPrefix = '¿';
 

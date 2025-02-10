@@ -5,5 +5,6 @@ namespace Protea.Interfaces.Services;
 public interface IVcTimeRecordService
 {
 	Task UpdateAsync(VcEntryRecord entryRecord);
-	Task<string> GetGuildUserVcTimeById(ulong guildId, ulong userId);
+	Task<string> GetTimeByIdAsync(ulong guildId, ulong userId);
+	Task<string> GetRankingAsync();
 }

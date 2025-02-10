@@ -29,7 +29,7 @@ public class VcTimeRecordService(IVcTimeRecordRepository vcTimeRecordRepository)
 		}
 	}
 
-	public async Task<string> GetGuildUserVcTimeById(ulong guildId, ulong userId)
+	public async Task<string> GetTimeByIdAsync(ulong guildId, ulong userId)
 	{
 		var user = await vcTimeRecordRepository.GetByIdAsync(guildId, userId);
 
@@ -40,6 +40,28 @@ public class VcTimeRecordService(IVcTimeRecordRepository vcTimeRecordRepository)
 		
 		var response = string.Format(Constants.VcCommandResponseFormat,
 			time.Days, time.Hours, time.Minutes, time.Seconds);
+		return response;
+	}
+
+	public async Task<string> GetRankingAsync()
+	{
+		var ranking = await vcTimeRecordRepository.GetRankingAsync();
+		
+		var response = Constants.VcRankingCommandHeader;
+
+		foreach (var record in ranking)
+		{
+			var time = TimeSpan.FromMilliseconds(record.TimeSpentMilliseconds);
+			response += string.Format(
+				Constants.VcRankingCommandResponseFormat,
+				record.Username,
+				time.Days,
+				time.Hours,
+				time.Minutes,
+				time.Seconds
+			);
+		}
+
 		return response;
 	}
 }
