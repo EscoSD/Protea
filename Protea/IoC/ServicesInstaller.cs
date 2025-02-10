@@ -20,5 +20,8 @@ public static class ServicesInstaller
 		serviceCollection.AddSingleton<ICommandHandler, CommandHandler>();
 		serviceCollection.AddSingleton<ILogHandler, LogHandler>();
 		serviceCollection.AddSingleton<IJsonService, JsonService>();
+		serviceCollection.AddSingleton<IUserService, UserService>();
+		serviceCollection.AddSingleton<IGuildService, GuildService>();
+		serviceCollection.AddSingleton<IVcTimeRecordService, VcTimeRecordService>();
 	}
 }
