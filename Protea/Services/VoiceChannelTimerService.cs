@@ -1,12 +1,13 @@
+using System.Collections.Immutable;
 using Discord.WebSocket;
 using Protea.Interfaces.Services;
 using Protea.Models;
 
 namespace Protea.Services;
 
-public class VoiceChannelTimerService(IJsonService jsonService) : IVoiceChannelTimerService
+public class VoiceChannelTimerService(IVcTimeRecordService vcTimeRecordService, IUserService userService, IGuildService guildService) : IVoiceChannelTimerService
 {
-	private readonly List<VcEntryRecord> _activeVcUsers = [];
+	private ImmutableList<VcEntryRecord> _activeVcUsers = ImmutableList<VcEntryRecord>.Empty;
 	
 	public void SaveVcEntry(SocketUser user, ulong guildId)
 	{
@@ -17,28 +18,23 @@ public class VoiceChannelTimerService(IJsonService jsonService) : IVoiceChannelT
 			StartTime = DateTime.Now
 		};
 		
-		_activeVcUsers.Add(entry);
+		ImmutableInterlocked.Update(ref _activeVcUsers, list => list.Add(entry));
 	}
 
 	public async Task SaveUserTime(SocketUser user, SocketGuild guild)
 	{
 		var activeUser = _activeVcUsers.FirstOrDefault(u => u.UserId.Equals(user.Id));
-		
 		if (activeUser == null) return;
 		
-		_activeVcUsers.Remove(activeUser);
+		ImmutableInterlocked.Update(ref _activeVcUsers, list => list.Remove(activeUser));
 		
-		var userTimeRecord = new TimeSpentVc
-		{
-			UserId = user.Id,
-			Username = user.Username,
-			GuildId = guild.Id,
-			GuildName = guild.Name,
-			TimeSpentMilliseconds =
-				Convert.ToInt64((DateTime.Now - activeUser.StartTime)
-				.TotalMilliseconds)
-		};
+		await RegisterGuildUser(user, guild);
+		await vcTimeRecordService.UpdateAsync(activeUser);
+	}
 
-		await jsonService.SaveUserTimeAsync(userTimeRecord);
+	private async Task RegisterGuildUser(SocketUser user, SocketGuild guild)
+	{
+		await userService.UpdateAsync(user);
+		await guildService.UpdateAsync(guild);
 	}
 }
