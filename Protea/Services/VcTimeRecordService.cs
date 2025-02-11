@@ -38,7 +38,7 @@ public class VcTimeRecordService(IVcTimeRecordRepository vcTimeRecordRepository)
 
 		var time = TimeSpan.FromMilliseconds(user.TimeSpentMilliseconds);
 		
-		var response = string.Format(Constants.VcCommandResponseFormat,
+		var response = string.Format(Constants.VcTimeCommandDescFormat,
 			time.Days, time.Hours, time.Minutes, time.Seconds);
 		return response;
 	}
@@ -47,13 +47,13 @@ public class VcTimeRecordService(IVcTimeRecordRepository vcTimeRecordRepository)
 	{
 		var ranking = await vcTimeRecordRepository.GetRankingAsync();
 		
-		var response = Constants.VcRankingCommandHeader;
+		var response = string.Empty;
 
 		foreach (var record in ranking)
 		{
 			var time = TimeSpan.FromMilliseconds(record.TimeSpentMilliseconds);
 			response += string.Format(
-				Constants.VcRankingCommandResponseFormat,
+				Constants.VcRankingCommandDescFormat,
 				record.Username,
 				time.Days,
 				time.Hours,

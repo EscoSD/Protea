@@ -23,5 +23,7 @@ public static class ServicesInstaller
 		serviceCollection.AddSingleton<IGuildService, GuildService>();
 		serviceCollection.AddSingleton<IVcTimeRecordService, VcTimeRecordService>();
 		serviceCollection.AddSingleton<IUtilCommandsService, UtilCommandsService>();
+
+		serviceCollection.AddHttpClient<IHttpService, HttpService>();
 	}
 }
