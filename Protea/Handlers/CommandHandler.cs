@@ -6,7 +6,7 @@ using Protea.Interfaces.Handlers;
 
 namespace Protea.Handlers;
 
-public class CommandHandler(DiscordSocketClient client, CommandService commands, IServiceProvider services) : ICommandHandler
+public class CommandHandler(IServiceProvider services, DiscordSocketClient client, CommandService commands) : ICommandHandler
 {
 	public async Task InstallCommandsAsync()
 	{
