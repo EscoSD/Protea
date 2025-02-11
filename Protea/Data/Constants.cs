@@ -2,6 +2,8 @@ namespace Protea.Data;
 
 public static class Constants
 {
+	public const ulong AdminId = 323418069093449729;
+	
 	public const char CommandsPrefix = '¿';
 
 	public const string VcTimeCommandText = "vcTime";
