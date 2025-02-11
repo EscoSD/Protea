@@ -4,9 +4,9 @@ using Protea.Interfaces.Services;
 
 namespace Protea.Modules;
 
-public class Commands (IVcTimeRecordService vcTimeRecordService): ModuleBase<SocketCommandContext>
+public class VcCommands (IVcTimeRecordService vcTimeRecordService): ModuleBase<SocketCommandContext>
 {
-	[Command("vcTime")]
+	[Command(Constants.VcTimeCommandText)]
 	[Summary(Constants.VcTimeCommandDesc)]
 	public async Task GetVcTimeAsync()
 	{
@@ -15,7 +15,7 @@ public class Commands (IVcTimeRecordService vcTimeRecordService): ModuleBase<Soc
 		await ReplyAsync(response);
 	}
 	
-	[Command("vcRanking")]
+	[Command(Constants.VcRankingCommandText)]
 	[Summary(Constants.VcRankingCommandDesc)]
 	public async Task GetVcRankingAsync()
 	{

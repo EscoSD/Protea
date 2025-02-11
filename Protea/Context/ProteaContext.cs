@@ -50,12 +50,8 @@ public class ProteaContext : DbContext
             entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Username).HasColumnType("TEXT(50)");
         });
-
-        //OnModelCreatingPartial(modelBuilder);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseLazyLoadingProxies();
-
-    //partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
