@@ -10,7 +10,9 @@ public class UtilCommands(IUtilCommandsService utilCommandsService) : ModuleBase
 	[Summary(Constants.SleepCommandDesc)]
 	public async Task EndSessionAsync()
 	{
-		if (Context.User.Id == Constants.AdminId)
-			await utilCommandsService.EndSessionAsync();
+		if (Context.User.Id != Constants.AdminId) return;
+
+		await ReplyAsync("Bye bye :(");
+		await utilCommandsService.EndSessionAsync();
 	}
 }
