@@ -22,5 +22,6 @@ public static class ServicesInstaller
 		serviceCollection.AddSingleton<IUserService, UserService>();
 		serviceCollection.AddSingleton<IGuildService, GuildService>();
 		serviceCollection.AddSingleton<IVcTimeRecordService, VcTimeRecordService>();
+		serviceCollection.AddSingleton<IUtilCommandsService, UtilCommandsService>();
 	}
 }
