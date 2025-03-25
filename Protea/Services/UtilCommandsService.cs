@@ -21,7 +21,7 @@ public class UtilCommandsService(DiscordSocketClient client) : IUtilCommandsServ
 			{Constants.VcTimeCommandText, Constants.VcTimeCommandDescription},
 			{Constants.VcRankingCommandText, Constants.VcRankingCommandDescription},
 			{Constants.CatMeCommandText, Constants.CatMeCommandDescription},
-			{Constants.JakeMeCommandText, Constants.JakeMeCommandDescription},
+			{Constants.DogMeCommandText, Constants.DogMeCommandDescription},
 			{Constants.PigCommandText, Constants.PigCommandDescription}
 		};
 

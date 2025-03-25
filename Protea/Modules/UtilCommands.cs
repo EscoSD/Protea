@@ -45,9 +45,9 @@ public class UtilCommands(IUtilCommandsService utilCommandsService, IHttpService
 		await ReplyAsync(embed: embed);
 	}
 	
-	[Command(Constants.JakeMeCommandText)]
-	[Summary(Constants.JakeMeCommandDescription)]
-	public async Task JaketeameAsync()
+	[Command(Constants.DogMeCommandText)]
+	[Summary(Constants.DogMeCommandDescription)]
+	public async Task DogMeAsync()
 	{
 		var embed = new EmbedBuilder
 		{

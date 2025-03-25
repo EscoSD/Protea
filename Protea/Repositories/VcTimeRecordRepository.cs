@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Protea.Context;
-using Protea.Data;
 using Protea.Interfaces.Repositories;
 using Protea.Models;
 

@@ -8,7 +8,9 @@ public static class Constants
 	public const string CatApiErrorUrl = "https://i.ytimg.com/vi/hxN_yHI6czw/sddefault.jpg";
 
 	public const string DogApiUrl = "https://dog.ceo/api/breeds/image/random";
-	public const string DogApiErrorUrl = "https://i.kym-cdn.com/entries/icons/facebook/000/053/033/jakingitcover.jpg";
+	public const string DogApiErrorUrl =
+		"https://sm.ign.com/ign_es/image/k/kabosu-the/" +
+		"kabosu-the-dog-behind-the-doge-meme-has-died_k7ec.jpg";
 
 	public const string PigImgUrl =
 		"https://media.discordapp.net/attachments/326707470233894912/1333598763918299249/" + 
@@ -24,7 +26,7 @@ public static class Constants
 	public const string VcRankingCommandText = "vcRanking";
 	public const string SleepCommandText = "sleep";
 	public const string CatMeCommandText = "catMe";
-	public const string JakeMeCommandText = "jaketeame";
+	public const string DogMeCommandText = "dogMe";
 	public const string PigCommandText = "carteles";
 
 	// DESCRIPCIONES DE COMANDOS
@@ -41,7 +43,7 @@ public static class Constants
 	
 	public const string SleepCommandDescription = "Se desactiva el Bot y se termina el programa";
 	public const string CatMeCommandDescription = "Invoca un gato";
-	public const string JakeMeCommandDescription = "Invoca un perro";
+	public const string DogMeCommandDescription = "Invoca un perro";
 	public const string PigCommandDescription = "Invoca un cerdo";
 
 
