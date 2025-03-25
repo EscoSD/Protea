@@ -1,18 +1,75 @@
+using Discord;
 using Discord.Commands;
 using Protea.Data;
 using Protea.Interfaces.Services;
 
 namespace Protea.Modules;
 
-public class UtilCommands(IUtilCommandsService utilCommandsService) : ModuleBase<SocketCommandContext>
+public class UtilCommands(IUtilCommandsService utilCommandsService, IHttpService httpService) : ModuleBase<SocketCommandContext>
 {
+	[Command(Constants.HelpCommandText)]
+	[Summary(Constants.HelpCommandDescription)]
+	public async Task HelpAsync()
+	{
+		var embed = new EmbedBuilder
+		{
+			Title = "Comandos",
+			Fields = utilCommandsService.GetAllCommandFields(),
+			Color = Color.Green
+		}.Build();
+		
+		await ReplyAsync(embed: embed);
+	}
+	
 	[Command(Constants.SleepCommandText)]
-	[Summary(Constants.SleepCommandDesc)]
+	[Summary(Constants.SleepCommandDescription)]
 	public async Task EndSessionAsync()
 	{
 		if (Context.User.Id != Constants.AdminId) return;
 
 		await ReplyAsync("Bye bye :(");
 		await utilCommandsService.EndSessionAsync();
+	}
+	
+	[Command(Constants.CatMeCommandText)]
+	[Summary(Constants.CatMeCommandDescription)]
+	public async Task CatMeAsync()
+	{
+		var embed = new EmbedBuilder
+		{
+			Title = "GATO",
+			ImageUrl = await httpService.GetCatUrlAsync(),
+			Color = Color.Green
+		}.Build();
+		
+		await ReplyAsync(embed: embed);
+	}
+	
+	[Command(Constants.DogMeCommandText)]
+	[Summary(Constants.DogMeCommandDescription)]
+	public async Task DogMeAsync()
+	{
+		var embed = new EmbedBuilder
+		{
+			Title = "ola",
+			ImageUrl = await httpService.GetDogUrlAsync(),
+			Color = Color.Green
+		}.Build();
+		
+		await ReplyAsync(embed: embed);
+	}
+	
+	[Command(Constants.PigCommandText)]
+	[Summary(Constants.PigCommandDescription)]
+	public async Task PigMeAsync()
+	{
+		var embed = new EmbedBuilder
+		{
+			Title = "ola",
+			ImageUrl = Constants.PigImgUrl,
+			Color = Color.Green
+		}.Build();
+		
+		await ReplyAsync(embed: embed);
 	}
 }
