@@ -20,12 +20,22 @@ public class VcTimeRecordRepository(ProteaContext context) : IVcTimeRecordReposi
 				g.GuildId == guildId && g.UserId == userId);
 	}
 
-	public async Task<IEnumerable<VcTimeRecordDto>> GetRankingAsync()
+	public async Task<IEnumerable<VcTimeRecordDto>> GetRankingAsync(ulong guildId)
 	{
-		FormattableString query = $"SELECT U.Username, V.TimeSpentMilliseconds\nFROM VcTimeRecord V\nINNER JOIN User U \nON V.UserId = U.Id\nORDER BY TimeSpentMilliseconds DESC\nLIMIT 5;";
+		FormattableString query =
+			$"""
+			                   SELECT U.Username, V.TimeSpentMilliseconds
+			                   FROM VcTimeRecord V 
+			                       INNER JOIN User U 
+			                           ON V.UserId = U.Id
+			                   WHERE GuildId = {guildId}
+			                   ORDER BY TimeSpentMilliseconds DESC
+			                   LIMIT 5;
+			 """;
+
 		return await context.Database.SqlQuery<VcTimeRecordDto>(query).ToListAsync();
 	}
-	
+
 	public async Task Update(VcTimeRecord vcTimeRecord)
 	{
 		context.GuildUsers.Update(vcTimeRecord);
