@@ -1,9 +1,9 @@
-using Discord.WebSocket;
+using Protea.Models;
 
 namespace Protea.Interfaces.Services;
 
 public interface IVoiceChannelTimerService
 {
-	void SaveVcEntry(SocketUser user, ulong guildId);
-	Task SaveUserTime(SocketUser user, SocketGuild guild);
+	void SaveVcEntry(UserGuildDto dto);
+	Task SaveUserTime(UserGuildDto dto);
 }
