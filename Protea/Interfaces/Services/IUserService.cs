@@ -1,8 +1,8 @@
-using Discord.WebSocket;
+using Protea.Models;
 
 namespace Protea.Interfaces.Services;
 
 public interface IUserService
 {
-	Task UpdateAsync(SocketUser user);
+	Task UpdateAsync(UserGuildDto dto);
 }

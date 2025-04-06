@@ -28,7 +28,7 @@ public class VcCommands (IVcTimeRecordService vcTimeRecordService, IHttpService 
 	[Summary(Constants.VcRankingCommandDescription)]
 	public async Task GetVcRankingAsync()
 	{
-		var response = await vcTimeRecordService.GetRankingAsync();
+		var response = await vcTimeRecordService.GetRankingAsync(Context.Guild.Id);
 
 		var imgUrl = await httpService.GetCatUrlAsync();
 		

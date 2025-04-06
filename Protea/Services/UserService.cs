@@ -1,4 +1,3 @@
-using Discord.WebSocket;
 using Protea.Interfaces.Repositories;
 using Protea.Interfaces.Services;
 using Protea.Models;
@@ -7,15 +6,15 @@ namespace Protea.Services;
 
 public class UserService(IUserRepository userRepository) : IUserService
 {
-	public async Task UpdateAsync(SocketUser user)
+	public async Task UpdateAsync(UserGuildDto dto)
 	{
 		var existingUser = await userRepository
-			.GetByIdAsync(user.Id);
+			.GetByIdAsync(dto.UserId);
 
 		var newUser = new User
 		{
-			Id = user.Id,
-			Username = user.Username,
+			Id = dto.UserId,
+			Username = dto.Username!
 		};
 
 		if (existingUser == null)

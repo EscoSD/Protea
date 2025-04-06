@@ -43,9 +43,9 @@ public class VcTimeRecordService(IVcTimeRecordRepository vcTimeRecordRepository)
 		return response;
 	}
 
-	public async Task<string> GetRankingAsync()
+	public async Task<string> GetRankingAsync(ulong guildId)
 	{
-		var ranking = await vcTimeRecordRepository.GetRankingAsync();
+		var ranking = await vcTimeRecordRepository.GetRankingAsync(guildId);
 		
 		var response = string.Empty;
 

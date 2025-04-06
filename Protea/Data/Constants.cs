@@ -16,6 +16,8 @@ public static class Constants
 		"https://media.discordapp.net/attachments/326707470233894912/1333598763918299249/" + 
 		"image.png?ex=67ac97e2&is=67ab4662&hm=f8207b3979b6f091c20100bb7f354e09b6dcb57e390d" +
 		"0e42fb0f93dffc8cd648&=&format=webp&quality=lossless&width=1193&height=671";
+
+	public const int AfkTimerMillis = 300000; // 5 minutos
 	
 	public const char CommandsPrefix = '¿';
 
