@@ -72,4 +72,18 @@ public class UtilCommands(IUtilCommandsService utilCommandsService, IHttpService
 		
 		await ReplyAsync(embed: embed);
 	}
+	
+	[Command(Constants.JakeCommandText)]
+	[Summary(Constants.JakeCommandDescription)]
+	public async Task JaketeameAsync()
+	{
+		var embed = new EmbedBuilder
+		{
+			Title = "ola",
+			ImageUrl = Constants.JakeImgUrl,
+			Color = Color.Green
+		}.Build();
+		
+		await ReplyAsync(embed: embed);
+	}
 }
