@@ -4,15 +4,14 @@ using Protea.Interfaces.Services;
 
 namespace Protea.Services;
 
-public class GeminiService(GenerativeModel model) : IGeminiService
+public class GeminiService(ChatSession chat) : IGeminiService
 {
 	public async Task<string> GetResponse(string prompt)
 	{
-		Console.WriteLine(prompt);
+		if (chat.History.Count > 200)
+			chat.History.RemoveRange(0, 50);
 		
-		var request = new GenerateContentRequest(prompt);
-		
-		var response = await model.GenerateContent(request);
+		var response = await chat.SendMessage(prompt);
 
 		if (response.Text == null)
 			return $"Ha ocurrido un error.-\\n{response.ToJsonDocument()}";

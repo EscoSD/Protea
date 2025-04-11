@@ -30,16 +30,5 @@ public static class ServicesInstaller
 		serviceCollection.AddSingleton<ILogHandler, LogHandler>();
 
 		serviceCollection.AddHttpClient<IHttpService, HttpService>();
-		
-		serviceCollection.AddSingleton(new GoogleAI(Environment.GetEnvironmentVariable("TOKEN_GEMINI")));
-		serviceCollection.AddSingleton<GenerativeModel>(provider =>
-		{
-			var googleAi = provider.GetRequiredService<GoogleAI>();
-			return googleAi.GenerativeModel(
-				model: Model.Gemini20Flash,
-				systemInstruction: new Content(Constants.GeminiInstruction)
-			);
-		});
-		
 	}
 }
