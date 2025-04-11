@@ -1,6 +1,8 @@
 using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
+using Mscc.GenerativeAI;
+using Protea.Data;
 using Protea.Handlers;
 using Protea.Interfaces.Handlers;
 using Protea.Interfaces.Services;
@@ -16,15 +18,28 @@ public static class ServicesInstaller
 		serviceCollection.AddSingleton<DiscordSocketClient>();
 		serviceCollection.AddSingleton<CommandService>();
 		serviceCollection.AddSingleton<IVoiceChannelTimerService, VoiceChannelTimerService>();
-		serviceCollection.AddSingleton<IVoiceChannelAfkService, VoiceChannelAfkService>();
-		serviceCollection.AddSingleton<IVoiceChannelHandler, VoiceChannelHandler>();
-		serviceCollection.AddSingleton<ICommandHandler, CommandHandler>();
-		serviceCollection.AddSingleton<ILogHandler, LogHandler>();
 		serviceCollection.AddSingleton<IUserService, UserService>();
 		serviceCollection.AddSingleton<IGuildService, GuildService>();
 		serviceCollection.AddSingleton<IVcTimeRecordService, VcTimeRecordService>();
 		serviceCollection.AddSingleton<IUtilCommandsService, UtilCommandsService>();
+		serviceCollection.AddSingleton<IVoiceChannelAfkService, VoiceChannelAfkService>();
+		serviceCollection.AddSingleton<IGeminiService, GeminiService>();
+		serviceCollection.AddSingleton<IVoiceChannelHandler, VoiceChannelHandler>();
+		serviceCollection.AddSingleton<ICommandHandler, CommandHandler>();
+		serviceCollection.AddSingleton<IMentionHandler, MentionHandler>();
+		serviceCollection.AddSingleton<ILogHandler, LogHandler>();
 
 		serviceCollection.AddHttpClient<IHttpService, HttpService>();
+		
+		serviceCollection.AddSingleton(new GoogleAI(Environment.GetEnvironmentVariable("TOKEN_GEMINI")));
+		serviceCollection.AddSingleton<GenerativeModel>(provider =>
+		{
+			var googleAi = provider.GetRequiredService<GoogleAI>();
+			return googleAi.GenerativeModel(
+				model: Model.Gemini20Flash,
+				systemInstruction: new Content(Constants.GeminiInstruction)
+			);
+		});
+		
 	}
 }
