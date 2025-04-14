@@ -13,10 +13,7 @@ public class GeminiService(ChatSession chat) : IGeminiService
 		
 		var response = await chat.SendMessage(prompt);
 
-		if (response.Text == null)
-			return $"Ha ocurrido un error.-\\n{response.ToJsonDocument()}";
-		
-		return response.Text.Length < 1999 ? response.Text :
-			"Error: La longitud de la respuesta ha superado lo permitido";
+		return response.Text ??
+		       $"Ha ocurrido un error.-\\n{response.ToJsonDocument()}";
 	}
 }

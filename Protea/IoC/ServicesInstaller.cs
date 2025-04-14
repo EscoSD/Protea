@@ -1,8 +1,6 @@
 using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
-using Mscc.GenerativeAI;
-using Protea.Data;
 using Protea.Handlers;
 using Protea.Interfaces.Handlers;
 using Protea.Interfaces.Services;
