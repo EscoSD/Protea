@@ -10,7 +10,7 @@ public static class AppConfigSetter
 {
 	public static ConfigurationApp SetConfig(this ConfigurationApp model)
 	{
-		var config = new ConfigurationManager();
+		using var config = new ConfigurationManager();
 		config.AddJsonFile("appsettings.json");
 
 		config.GetSection("ConfigurationApp").Bind(model);

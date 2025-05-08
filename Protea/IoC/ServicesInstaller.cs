@@ -16,14 +16,17 @@ public static class ServicesInstaller
 		serviceCollection.AddSingleton<DiscordSocketClient>();
 		serviceCollection.AddSingleton<CommandService>();
 		serviceCollection.AddSingleton<IVoiceChannelTimerService, VoiceChannelTimerService>();
-		serviceCollection.AddSingleton<IVoiceChannelAfkService, VoiceChannelAfkService>();
-		serviceCollection.AddSingleton<IVoiceChannelHandler, VoiceChannelHandler>();
-		serviceCollection.AddSingleton<ICommandHandler, CommandHandler>();
-		serviceCollection.AddSingleton<ILogHandler, LogHandler>();
 		serviceCollection.AddSingleton<IUserService, UserService>();
 		serviceCollection.AddSingleton<IGuildService, GuildService>();
 		serviceCollection.AddSingleton<IVcTimeRecordService, VcTimeRecordService>();
-		serviceCollection.AddSingleton<IUtilCommandsService, UtilCommandsService>();
+		serviceCollection.AddSingleton<IAdminCommandsService, AdminCommandsService>();
+		serviceCollection.AddSingleton<IMiscCommandsService, MiscCommandsService>();
+		serviceCollection.AddSingleton<IVoiceChannelAfkService, VoiceChannelAfkService>();
+		serviceCollection.AddSingleton<IGeminiService, GeminiService>();
+		serviceCollection.AddSingleton<IVoiceChannelHandler, VoiceChannelHandler>();
+		serviceCollection.AddSingleton<ICommandHandler, CommandHandler>();
+		serviceCollection.AddSingleton<IMentionHandler, MentionHandler>();
+		serviceCollection.AddSingleton<ILogHandler, LogHandler>();
 
 		serviceCollection.AddHttpClient<IHttpService, HttpService>();
 	}

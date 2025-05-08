@@ -2,8 +2,7 @@ using Discord;
 
 namespace Protea.Interfaces.Services;
 
-public interface IUtilCommandsService
+public interface IMiscCommandsService
 {
-	Task EndSessionAsync();
 	List<EmbedFieldBuilder> GetAllCommandFields();
 }

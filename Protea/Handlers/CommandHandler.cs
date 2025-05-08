@@ -22,8 +22,7 @@ public class CommandHandler(IServiceProvider services, DiscordSocketClient clien
 		
 		var argPos = 0;
 		
-		if (!(message.HasCharPrefix(Constants.CommandsPrefix, ref argPos) ||
-		      message.HasMentionPrefix(client.CurrentUser, ref argPos)) ||
+		if (!message.HasCharPrefix(Constants.CommandsPrefix, ref argPos) ||
 		    message.Author.IsBot)
 			return;
 		

@@ -1,18 +1,11 @@
 using Discord;
-using Discord.WebSocket;
 using Protea.Data;
 using Protea.Interfaces.Services;
 
 namespace Protea.Services;
 
-public class UtilCommandsService(DiscordSocketClient client) : IUtilCommandsService
+public class MiscCommandsService : IMiscCommandsService
 {
-	public async Task EndSessionAsync()
-	{
-		await client.StopAsync();
-		Environment.Exit(0);
-	}
-	
 	public List<EmbedFieldBuilder> GetAllCommandFields()
 	{
 		var commands = new Dictionary<string, string>

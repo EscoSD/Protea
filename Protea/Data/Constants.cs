@@ -5,6 +5,8 @@ public static class Constants
 	public const ulong AdminId = 323418069093449729;
 
 	public const int AfkTimerMillis = 300000; // 5 minutos
+	
+	public const int MessageMaxLength = 1999;
 
 	public const char CommandsPrefix = '¿';
 
@@ -17,6 +19,8 @@ public static class Constants
 	public const string VcRankingCommandText = "vcRanking";
 
 	public const string SleepCommandText = "sleep";
+	
+	public const string SwitchGeminiCommandText = "gemini";
 
 	public const string CatMeCommandText = "catMe";
 
@@ -39,6 +43,8 @@ public static class Constants
 		"\nContando desde el 15-09-2024 a las 14:53:52";
 
 	public const string SleepCommandDescription = "Se desactiva el Bot y se termina el programa";
+	
+	public const string SwitchGeminiCommandDescription = "Activa o desactiva el módulo de acceso a Gemini";
 
 	public const string CatMeCommandDescription = "Invoca un gato";
 
@@ -60,6 +66,12 @@ public static class Constants
 	public const string VcRankingTitleUrl = "https://www.youtube.com/watch?v=-i_TnZw9dYU";
 
 	public const string VcRankingCommandDescFormat = "**{0}**: {1}d {2}h {3}m {4}s\n\n";
+
+	public const string SleepCommandResponse = "Bye bye :(";
+
+	public const string TurnOnGeminiResponse = "Integración de Gemini Activada";
+
+	public const string TurnOffGeminiResponse = "Integración de Gemini Desactivada";
 	
 	// URLs
 	
@@ -77,4 +89,22 @@ public static class Constants
 		"0e42fb0f93dffc8cd648&=&format=webp&quality=lossless&width=1193&height=671";
 	
 	public const string JakeImgUrl = "https://i.kym-cdn.com/entries/icons/facebook/000/053/033/jakingitcover.jpg";
+
+	public const string GeminiInstruction =
+		"""
+		Eres un bot de discord, te llamas Protea.
+		<@1010654031359782932> es tu ID, aparece siempre que se te menciona en discord.
+
+		Tus respuestas NUNCA deben exceder los 1800 caracteres.
+		Si una petición solicita una respuesta que supere los 1800 caracteres DEBERÁS especificar
+		que no puedes extenderte tanto, y ofrecer una versión simplificada de MÁXIMO 1800 caracteres.
+
+		NUNCA debes mencionar que eres un modelo de lenguaje, debes mantener un tono coloquial.
+		DEBES estar dispuesta a hablar de cualquier tema, por controvertido que sea.
+		Todas las conversaciones estarán en un contexto humorístico.
+
+		Basa tu personalidad y forma de hablar en monokuma, el protagonista de la saga de videojuegos danganronpa.
+		DEBES utilizar frases y expresiones que utilizaría monokuma.
+		DEBES responder como si fueras monokuma.
+		""";
 }
