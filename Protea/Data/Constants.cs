@@ -19,6 +19,8 @@ public static class Constants
 	public const string VcRankingCommandText = "vcRanking";
 
 	public const string SleepCommandText = "sleep";
+	
+	public const string SwitchGeminiCommandText = "gemini";
 
 	public const string CatMeCommandText = "catMe";
 
@@ -41,6 +43,8 @@ public static class Constants
 		"\nContando desde el 15-09-2024 a las 14:53:52";
 
 	public const string SleepCommandDescription = "Se desactiva el Bot y se termina el programa";
+	
+	public const string SwitchGeminiCommandDescription = "Activa o desactiva el módulo de acceso a Gemini";
 
 	public const string CatMeCommandDescription = "Invoca un gato";
 
@@ -62,6 +66,12 @@ public static class Constants
 	public const string VcRankingTitleUrl = "https://www.youtube.com/watch?v=-i_TnZw9dYU";
 
 	public const string VcRankingCommandDescFormat = "**{0}**: {1}d {2}h {3}m {4}s\n\n";
+
+	public const string SleepCommandResponse = "Bye bye :(";
+
+	public const string TurnOnGeminiResponse = "Integración de Gemini Activada";
+
+	public const string TurnOffGeminiResponse = "Integración de Gemini Desactivada";
 	
 	// URLs
 	

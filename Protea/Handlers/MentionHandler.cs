@@ -8,14 +8,17 @@ namespace Protea.Handlers;
 
 public class MentionHandler(DiscordSocketClient client, IGeminiService geminiService) : IMentionHandler
 {
+	public bool IsGeminiEnabled { get; set; }
+	
 	public void InstallHandler()
 	{
 		client.MessageReceived += HandleMention;
+		IsGeminiEnabled = true;
 	}
 
 	private async Task HandleMention(SocketMessage messageParam)
 	{
-		if (messageParam.Author.IsBot || messageParam is not SocketUserMessage message)
+		if (!IsGeminiEnabled || messageParam.Author.IsBot || messageParam is not SocketUserMessage message)
 			return;
 
 		if (message.MentionedUsers.Any(user => user.Id == client.CurrentUser.Id))

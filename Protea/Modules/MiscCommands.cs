@@ -5,7 +5,7 @@ using Protea.Interfaces.Services;
 
 namespace Protea.Modules;
 
-public class UtilCommands(IUtilCommandsService utilCommandsService, IHttpService httpService) : ModuleBase<SocketCommandContext>
+public class MiscCommands(IMiscCommandsService miscCommandsService, IHttpService httpService) : ModuleBase<SocketCommandContext>
 {
 	[Command(Constants.HelpCommandText)]
 	[Summary(Constants.HelpCommandDescription)]
@@ -14,21 +14,11 @@ public class UtilCommands(IUtilCommandsService utilCommandsService, IHttpService
 		var embed = new EmbedBuilder
 		{
 			Title = "Comandos",
-			Fields = utilCommandsService.GetAllCommandFields(),
+			Fields = miscCommandsService.GetAllCommandFields(),
 			Color = Color.Green
 		}.Build();
 		
 		await ReplyAsync(embed: embed);
-	}
-	
-	[Command(Constants.SleepCommandText)]
-	[Summary(Constants.SleepCommandDescription)]
-	public async Task EndSessionAsync()
-	{
-		if (Context.User.Id != Constants.AdminId) return;
-
-		await ReplyAsync("Bye bye :(");
-		await utilCommandsService.EndSessionAsync();
 	}
 	
 	[Command(Constants.CatMeCommandText)]
