@@ -1,3 +1,6 @@
+appsettings.json
+appsettings-PRO.json
+
 bin/
 obj/
 /packages/
