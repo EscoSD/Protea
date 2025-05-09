@@ -23,7 +23,9 @@ public class MentionHandler(DiscordSocketClient client, IGeminiService geminiSer
 
 		if (message.MentionedUsers.Any(user => user.Id == client.CurrentUser.Id))
 		{
-			var response = await geminiService.GetResponse(message.Content);
+			var prompt = $"Mensaje de {message.Author.GlobalName}:\n {message.Content}";
+			
+			var response = await geminiService.GetResponse(prompt);
 			await SendResponse(message, response);
 		}
 	}
