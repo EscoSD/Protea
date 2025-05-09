@@ -16,7 +16,7 @@ var commandsConfig = new CommandServiceConfig().GetCommandsConfig();
 services.InstallConfig(config, discConfig, commandsConfig);
 services.InstallContext(config);
 services.InstallRepositories();
-services.InstallGemini();
+services.InstallGemini(config);
 services.InstallServices();
 
 IServiceProvider serviceProvider = services.BuildServiceProvider();
