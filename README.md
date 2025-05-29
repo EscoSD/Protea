@@ -22,7 +22,3 @@
 | `¿catMe`      | 🐱 Invoca un gato.                                                          |
 | `¿dogMe`      | 🐶 Invoca un perro.                                                         |
 | `¿carteles`   | 🐷 Invoca un cerdo.                                                         |
-
----
-
-¡Disfruta tu estadía en **OLA BBS** con la compañía de **Protea**!
